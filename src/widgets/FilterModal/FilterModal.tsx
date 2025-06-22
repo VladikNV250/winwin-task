@@ -1,9 +1,11 @@
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useQuery } from '@tanstack/react-query'
 
+import { useFilterStore } from '@/entities/filter'
 import { getFilters } from '@/shared/api/Filter'
+import { FilterType, SearchRequestFilter } from '@/shared/api/types'
 import {
 	Button,
 	Checkbox,
@@ -22,24 +24,75 @@ interface IFilterModal {
 }
 
 export const FilterModal: FC<IFilterModal> = ({ isOpen, onClose }) => {
+	const selectedFilters = useFilterStore(state => state.selectedFilters)
+	const setFilters = useFilterStore(state => state.setFilters)
 	const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false)
+	const [selectedFormFilters, setSelectedFormFilters] =
+		useState<SearchRequestFilter>([])
 	const { t } = useTranslation()
 	const { data, isLoading } = useQuery({
 		queryKey: ['filters'],
 		queryFn: getFilters
 	})
 
+	useEffect(() => {
+		setSelectedFormFilters(selectedFilters)
+	}, [selectedFilters])
+
 	const closeConfirmModal = useCallback(() => setIsOpenConfirmModal(false), [])
 	const openConfirmModal = useCallback(() => setIsOpenConfirmModal(true), [])
 	const closeModals = useCallback(() => {
 		onClose()
 		closeConfirmModal()
-	}, [])
+		setSelectedFormFilters(selectedFilters)
+	}, [selectedFilters, closeConfirmModal, onClose])
 
 	const saveChanges = useCallback(() => {
-		console.log("Changes Saved!")
+		setFilters(selectedFormFilters)
 		closeModals()
-	}, [])
+	}, [selectedFormFilters, closeModals, setFilters])
+
+	const checkFilter = (filterId: string, optionId: string): boolean => {
+		const existingFilter = selectedFormFilters.find(
+			item => item.id === filterId
+		)
+		if (existingFilter) {
+			const isSelected = existingFilter.optionsIds.includes(optionId)
+
+			return isSelected
+		}
+		return false
+	}
+
+	const selectFilter = (filterId: string, optionId: string) => {
+		const existingFilter = selectedFormFilters.find(
+			item => item.id === filterId
+		)
+
+		if (existingFilter) {
+			const isSelected = existingFilter.optionsIds.includes(optionId)
+
+			const updatedFilter: SearchRequestFilter[number] = {
+				...existingFilter,
+				optionsIds: isSelected
+					? existingFilter.optionsIds.filter(id => id !== optionId)
+					: [...existingFilter.optionsIds, optionId]
+			}
+
+			const newFilters = selectedFormFilters.map(filter =>
+				filter.id === filterId ? updatedFilter : filter
+			)
+
+			setSelectedFormFilters(newFilters)
+		} else {
+			const newFilter: SearchRequestFilter[number] = {
+				id: filterId,
+				optionsIds: [optionId],
+				type: FilterType.OPTION
+			}
+			setSelectedFormFilters(prevState => [...prevState, newFilter])
+		}
+	}
 
 	return (
 		<Modal
@@ -73,7 +126,7 @@ export const FilterModal: FC<IFilterModal> = ({ isOpen, onClose }) => {
 							<Loader />
 						</div>
 					) : (
-						<form action="">
+						<section>
 							{data?.filterItems.map(filterItem => (
 								<article key={filterItem.id}>
 									<hr className="border-t-0 h-0.5 bg-[#B4B4B4] rounded-xs mt-6 mb-8" />
@@ -84,12 +137,14 @@ export const FilterModal: FC<IFilterModal> = ({ isOpen, onClose }) => {
 												key={option.id}
 												id={option.id}
 												label={option.name}
+												onClick={() => selectFilter(filterItem.id, option.id)}
+												checked={checkFilter(filterItem.id, option.id)}
 											/>
 										))}
 									</div>
 								</article>
 							))}
-						</form>
+						</section>
 					)}
 					<section>
 						<hr className="border-t-0 h-0.5 bg-[#B4B4B4] rounded-xs mt-6 mb-8" />

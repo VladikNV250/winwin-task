@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useFilterStore } from '@/entities/filter'
 import { Button } from '@/shared/ui'
 import { FilterModal } from '@/widgets'
 
 export const App = () => {
 	const { t } = useTranslation()
 	const [isOpenFilterModal, setIsOpenFilterModal] = useState(false)
+	const selectedFilters = useFilterStore(state => state.selectedFilters)
 
 	return (
 		<section className="relative w-full h-dvh flex items-center justify-center">
@@ -18,6 +20,16 @@ export const App = () => {
 				<Button onClick={() => setIsOpenFilterModal(true)}>
 					{t('Open Filters')}
 				</Button>
+				<div>
+					{selectedFilters.map(item => (
+						<p key={item.id}>
+							{t('FilterId')}: {item.id} | {t('Options: ')}
+							{item.optionsIds.map(item => (
+								<Fragment key={item}>{item}, </Fragment>
+							))}
+						</p>
+					))}
+				</div>
 			</div>
 			<FilterModal
 				isOpen={isOpenFilterModal}
