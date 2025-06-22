@@ -1,4 +1,5 @@
 export * from './Modal'
-export * from './Typography'
+export * from './Button'
 export * from './Checkbox'
+export * from './Typography'
 export * from './Icons'
