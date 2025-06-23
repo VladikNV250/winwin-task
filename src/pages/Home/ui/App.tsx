@@ -1,13 +1,14 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useFilterStore } from '@/entities/filter'
+import { useModalStore } from '@/shared/model'
 import { Button } from '@/shared/ui'
 import { FilterModal } from '@/widgets'
 
 export const App = () => {
 	const { t } = useTranslation()
-	const [isOpenFilterModal, setIsOpenFilterModal] = useState(false)
+	const openModal = useModalStore(state => state.openModal)
 	const selectedFilters = useFilterStore(state => state.selectedFilters)
 
 	return (
@@ -17,13 +18,13 @@ export const App = () => {
 				<h1 className="text-6xl text-gray-600 mb-12">
 					WinWinTravel frontend test task
 				</h1>
-				<Button onClick={() => setIsOpenFilterModal(true)}>
-					{t('Open Filters')}
+				<Button onClick={() => openModal('filter-modal')}>
+					{t('filter:open-filters')}
 				</Button>
 				<section>
 					{selectedFilters.map(item => (
 						<p key={item.id}>
-							{t('FilterId')}: {item.id} | {t('Options: ')}
+							{t('filter:filter-id')}: {item.id} | {t('filter:options')}:
 							{item.optionsIds.map(item => (
 								<Fragment key={item}>{item}, </Fragment>
 							))}
@@ -31,10 +32,7 @@ export const App = () => {
 					))}
 				</section>
 			</div>
-			<FilterModal
-				isOpen={isOpenFilterModal}
-				onClose={() => setIsOpenFilterModal(false)}
-			/>
+			<FilterModal />
 		</main>
 	)
 }

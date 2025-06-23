@@ -1,1 +1,13 @@
-{}
+{
+    "open-filters": "Open Filters",
+    "options": "Options",
+    "filter-id": "Filter ID",
+    "do-you-want-to-apply-new-filter": "Do you want to apply new filter",
+    "close-confirmation-modal": "Close confirmation modal",
+    "use-old-filter": "Use old filter",
+    "apply-new-filter": "Apply new filter",
+    "filter": "Filter",
+    "apply": "Apply",
+    "clear-all-parameters": "Clear all parameters",
+    "close-filter-modal": "Close filter modal"
+}
