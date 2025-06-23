@@ -2,10 +2,10 @@
 @import 'tw-animate-css';
 
 @theme {
-    --color-brand-500: #FF5F00;
-    --color-brand-400: #FF833A;
-    --color-brand-50: #FFE1CF;
-    --color-primary-text: #31393C;
-    --color-secondary-text: #B4B4B4;
-    --color-modal: #B1B1B1;
+	--color-brand-500: #ff5f00;
+	--color-brand-400: #ff833a;
+	--color-brand-50: #ffe1cf;
+	--color-primary-text: #31393c;
+	--color-secondary-text: #b4b4b4;
+	--color-modal: #b1b1b1;
 }

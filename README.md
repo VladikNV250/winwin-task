@@ -7,12 +7,14 @@ This document outlines which parts of the task have been completed based on the 
 ## What Has Been Implemented
 
 ### 1. **Filter Data via API**
+
 - The filter data is fetched via the `getFilters` function, which simulates an API call using the `filterData.json`.
 - Data is typed using the provided `FilterItem` type.
 
 ---
 
 ### 2. **Filter Modal UI**
+
 - The modal window was implemented based on the provided Figma design.
 - Layout and spacing were aligned closely with the design; minor inconsistencies were normalized for visual consistency.
 - The modal opens from a button located on the homepage.
@@ -20,17 +22,20 @@ This document outlines which parts of the task have been completed based on the 
 ---
 
 ### 3. **Pre-filled Filter Selection**
+
 - When opening the modal, previously selected filter values are automatically loaded from global state (`zustand`) and displayed as selected.
 
 ---
 
 ### 4. **Editing Filters**
+
 - Users can check/uncheck filter options.
 - All interactions update a local copy of the selection, allowing changes to be reviewed before applying.
 
 ---
 
 ### 5. **Apply & Confirmation**
+
 - When the user clicks “Apply,” a confirmation modal is displayed.
   - If confirmed, changes are saved to global state.
   - If canceled, previous state is restored and new changes are discarded.
@@ -38,12 +43,14 @@ This document outlines which parts of the task have been completed based on the 
 ---
 
 ### 6. **Display Selected Filters**
+
 - Selected filters are shown on the homepage in raw JSON format.
 - This is included for visibility/debugging, as required in the task.
 
 ---
 
 ### 7. **State Management**
+
 - Global state is handled via `zustand`.
 - Local state (within the modal) is managed with `Map` + `useState` for performance and clarity.
 - A helper function normalizes this local state into the expected `SearchRequestFilter` format when applying.
@@ -51,6 +58,7 @@ This document outlines which parts of the task have been completed based on the 
 ---
 
 ### 8. **GitHub Actions**
+
 - A GitHub Action pipeline is included (e.g. `pipeline.yml`) to automatically check the codebase on commit or pull request.
 
 ---
