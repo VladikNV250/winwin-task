@@ -1,32 +1,21 @@
 import { FC } from 'react'
-import { useTranslation } from 'react-i18next'
+
+import clsx from 'clsx'
 
 import { FilterItem } from '@/shared/api/types'
 import { Checkbox, Subtitle } from '@/shared/ui'
 
-interface IFilterGroup {
+interface FilterGroupProps {
 	filterItem: FilterItem
 	checkOption: (filterId: string, optionId: string) => boolean
 	onSelect: (filterId: string, optionId: string) => void
 }
 
-export const FilterGroup: FC<IFilterGroup> = ({
+export const FilterGroup: FC<FilterGroupProps> = ({
 	filterItem,
 	checkOption,
 	onSelect
 }) => {
-	const { t } = useTranslation()
-
-	const getGridColumns = (countOfOptions: number): string => {
-		if (countOfOptions <= 2) {
-			return 'grid-cols-1'
-		} else if (countOfOptions === 4) {
-			return 'grid-cols-2'
-		}
-
-		return 'grid-cols-3'
-	}
-
 	return (
 		<section>
 			<hr className="border-t-0 h-0.5 bg-secondary-text rounded-xs mt-6 mb-8" />
@@ -34,12 +23,17 @@ export const FilterGroup: FC<IFilterGroup> = ({
 				id={`filter-group-${filterItem.id}-title`}
 				className="mb-6"
 			>
-				{t(filterItem.name)}
+				{filterItem.name}
 			</Subtitle>
 			<div
 				role="group"
 				aria-labelledby={`filter-group-${filterItem.id}-title`}
-				className={`grid gap-y-5 ${getGridColumns(filterItem.options.length)}`}
+				className={clsx('grid gap-y-5', {
+					'grid-cols-1': filterItem.options.length < 3,
+					'grid-cols-2': filterItem.options.length === 4,
+					'grid-cols-3':
+						filterItem.options.length > 4 || filterItem.options.length === 3
+				})}
 			>
 				{filterItem.options.map(option => (
 					<Checkbox

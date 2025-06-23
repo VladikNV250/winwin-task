@@ -1,6 +1,6 @@
-export * from './Modal'
 export * from './Button'
 export * from './Checkbox'
 export * from './Typography'
 export * from './Icons'
 export * from './Loader'
+export * from './Modal'

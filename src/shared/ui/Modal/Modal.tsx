@@ -1,29 +1,40 @@
 import { FC, ReactNode } from 'react'
 
-interface IModal {
+import { Dialog } from '@headlessui/react'
+import clsx from 'clsx'
+
+interface ModalProps {
 	readonly isOpen: boolean
+	readonly onClose: () => void
 	readonly children: ReactNode
-	readonly titleId: string
 	readonly className?: string
 }
 
-export const Modal: FC<IModal> = ({ isOpen, children, titleId, className }) => {
+export const Modal: FC<ModalProps> = ({
+	isOpen,
+	onClose,
+	children,
+	className
+}) => {
 	if (!isOpen) {
 		return null
 	}
 
 	return (
-		<div
-			role="dialog"
-			aria-modal="true"
-			aria-labelledby={titleId} // The ID of the title element inside the modal
-			className={`
-				absolute top-0 left-0 w-full min-h-full
-				bg-modal/30 backdrop-blur-xl
-				${className || ''}
-			`}
+		<Dialog
+			open={isOpen}
+			onClose={onClose}
+			className="relative z-50"
 		>
-			{children}
-		</div>
+			<div
+				className={clsx(
+					'fixed top-0 inset-0 flex overflow-y-auto w-screen',
+					'justify-center items-start bg-modal/30 backdrop-blur-xl',
+					className
+				)}
+			>
+				{children}
+			</div>
+		</Dialog>
 	)
 }
