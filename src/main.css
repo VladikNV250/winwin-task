@@ -1,2 +1,11 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+
+@theme {
+	--color-brand-500: #ff5f00;
+	--color-brand-400: #ff833a;
+	--color-brand-50: #ffe1cf;
+	--color-primary-text: #31393c;
+	--color-secondary-text: #b4b4b4;
+	--color-modal: #b1b1b1;
+}
