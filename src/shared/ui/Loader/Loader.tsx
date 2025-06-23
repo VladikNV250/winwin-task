@@ -8,8 +8,8 @@ export const Loader: FC<ILoader> = ({ loading = true }) => {
 	return (
 		<div
 			className={`
-				size-12 border-5 border-[#31393C] 
-				border-b-[#FF5F00] rounded-full animate-spin 
+				size-12 border-5 border-primary-text 
+				border-b-brand-500 rounded-full animate-spin 
 				${loading ? 'block' : 'hidden'}
 			`}
 		/>

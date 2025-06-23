@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import { HTMLAttributes, ReactNode } from 'react'
 
-export interface ITypography {
+export interface ITypography extends HTMLAttributes<HTMLHeadingElement> {
 	readonly className?: string
 	readonly children: ReactNode
 }

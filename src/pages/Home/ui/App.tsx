@@ -11,7 +11,7 @@ export const App = () => {
 	const selectedFilters = useFilterStore(state => state.selectedFilters)
 
 	return (
-		<section className="relative w-full h-dvh flex items-center justify-center">
+		<main className="relative w-full h-dvh flex items-center justify-center">
 			<div className="flex flex-col items-center">
 				{/* eslint-disable-next-line i18next/no-literal-string */}
 				<h1 className="text-6xl text-gray-600 mb-12">
@@ -20,7 +20,7 @@ export const App = () => {
 				<Button onClick={() => setIsOpenFilterModal(true)}>
 					{t('Open Filters')}
 				</Button>
-				<div>
+				<section>
 					{selectedFilters.map(item => (
 						<p key={item.id}>
 							{t('FilterId')}: {item.id} | {t('Options: ')}
@@ -29,12 +29,12 @@ export const App = () => {
 							))}
 						</p>
 					))}
-				</div>
+				</section>
 			</div>
 			<FilterModal
 				isOpen={isOpenFilterModal}
 				onClose={() => setIsOpenFilterModal(false)}
 			/>
-		</section>
+		</main>
 	)
 }

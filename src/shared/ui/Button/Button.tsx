@@ -1,6 +1,6 @@
-import { FC, ReactNode } from 'react'
+import { ButtonHTMLAttributes, FC, ReactNode } from 'react'
 
-export interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	readonly children: ReactNode
 	readonly variant?: 'primary' | 'outline'
 	readonly size?: 'md' | 'sm'
@@ -10,9 +10,9 @@ const baseStyles =
 	'rounded-2xl focus:outline-none transition-colors duration-150 cursor-pointer font-semibold text-base leading-none'
 
 const variantStyles = {
-	primary: 'bg-[#FF5F00] text-white hover:bg-[#FF833A]',
+	primary: 'bg-brand-500 text-white hover:bg-brand-400',
 	outline:
-		'border-2 border-[#B4B4B4] text-[#474747] bg-transparent hover:bg-[#ffe1cf]'
+		'border-2 border-secondary-text text-[#474747] bg-transparent hover:bg-brand-50'
 }
 
 const sizeStyles = {
@@ -25,11 +25,13 @@ export const Button: FC<IButton> = ({
 	variant = 'primary',
 	size = 'md',
 	className = '',
+	type = 'button',
 	...props
 }) => {
 	return (
 		<button
-			className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+			type={type}
+			className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className || ''}`}
 			{...props}
 		>
 			{children}

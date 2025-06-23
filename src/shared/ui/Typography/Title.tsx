@@ -2,12 +2,13 @@ import { FC } from 'react'
 
 import { ITypography } from './types'
 
-export const Title: FC<ITypography> = ({ children, className }) => {
+export const Title: FC<ITypography> = ({ children, className, ...props }) => {
 	return (
-		<h1
-			className={`${className} font-medium text-[40px] leading-none text-[#31393C]`}
+		<h2
+			className={`${className || ''} font-medium text-[40px] leading-none text-primary-text`}
+			{...props}
 		>
 			{children}
-		</h1>
+		</h2>
 	)
 }

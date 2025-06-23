@@ -4,5 +4,5 @@ import { FilterStore } from './types'
 
 export const useFilterStore = create<FilterStore>(set => ({
 	selectedFilters: [],
-	setFilters: filters => set(() => ({ selectedFilters: filters }))
+	setSelectedFilters: filters => set(() => ({ selectedFilters: filters }))
 }))
