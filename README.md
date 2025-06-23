@@ -66,7 +66,6 @@ This document outlines which parts of the task have been completed based on the 
 ## Notes(!)
 
 - "Clear all filters" functionality was **not implemented**, as it was not mentioned in the task description.
-- Also I forget to copy of the reposit
 
 ## How to set up the project
 
