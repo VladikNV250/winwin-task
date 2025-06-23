@@ -1,6 +1,8 @@
 import { ButtonHTMLAttributes, FC, ReactNode } from 'react'
 
-export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+import clsx from 'clsx'
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	readonly children: ReactNode
 	readonly variant?: 'primary' | 'outline'
 	readonly size?: 'md' | 'sm'
@@ -20,7 +22,7 @@ const sizeStyles = {
 	sm: 'w-46 h-16'
 }
 
-export const Button: FC<IButton> = ({
+export const Button: FC<ButtonProps> = ({
 	children,
 	variant = 'primary',
 	size = 'md',
@@ -31,7 +33,12 @@ export const Button: FC<IButton> = ({
 	return (
 		<button
 			type={type}
-			className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className || ''}`}
+			className={clsx(
+				baseStyles,
+				variantStyles[variant],
+				sizeStyles[size],
+				className
+			)}
 			{...props}
 		>
 			{children}

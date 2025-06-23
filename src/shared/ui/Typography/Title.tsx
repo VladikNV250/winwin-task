@@ -1,11 +1,20 @@
 import { FC } from 'react'
 
-import { ITypography } from './types'
+import clsx from 'clsx'
 
-export const Title: FC<ITypography> = ({ children, className, ...props }) => {
+import { TypographyProps } from './types'
+
+export const Title: FC<TypographyProps> = ({
+	children,
+	className,
+	...props
+}) => {
 	return (
 		<h2
-			className={`${className || ''} font-medium text-[40px] leading-none text-primary-text`}
+			className={clsx(
+				'font-medium text-[40px] leading-none text-primary-text',
+				className
+			)}
 			{...props}
 		>
 			{children}

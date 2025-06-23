@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { ISVGIcon } from './types'
+import { SVGIconProps } from './types'
 
-export const CloseIcon: FC<ISVGIcon> = ({ width, height, color }) => {
+export const CloseIcon: FC<SVGIconProps> = ({ width, height, color }) => {
 	return (
 		<svg
 			width={width || '40'}
